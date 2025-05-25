@@ -1,5 +1,11 @@
 # LLMany - A free and open-source LLM response aggregator service
 
+## License
+
+LLMany is released under the PolyForm Noncommercial 1.0.0 License.  
+You are free to use and modify the code for **non-commercial** purposes.  
+Commercial use strictly requires explicit prior permission by the author of this software.
+
 ## Overview
 LLMany is a web-based service that allows you to send a single text prompt to multiple popular LLMs at the same time.
 
