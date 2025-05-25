@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kylSPiDRLeLy/1YruKuMgrXOm5+5AB0zVMcdQx5gpaPMtvhBrrgnJXwh74MEHGVtFAgT/vrlyDWMvtNS4H/stA==",
+  "dgSpecHash": "KyO0MTL3bSvOPva4P8Kri/WAyqq0y9K5B3OOzqfI6FbQeA7hNkIi2x1SBIDq4Yj7vEJvgvmStDPsXVb254ahmw==",
   "success": true,
-  "projectFilePath": "/Users/brandongrando/Documents/llmany/llmany-backend/llmany-backend.csproj",
+  "projectFilePath": "/Users/brandongrando/Documents/llmany/backend/llmany-backend.csproj",
   "expectedPackageFiles": [
     "/Users/brandongrando/.nuget/packages/microsoft.entityframeworkcore/9.0.5/microsoft.entityframeworkcore.9.0.5.nupkg.sha512",
     "/Users/brandongrando/.nuget/packages/microsoft.entityframeworkcore.abstractions/9.0.5/microsoft.entityframeworkcore.abstractions.9.0.5.nupkg.sha512",

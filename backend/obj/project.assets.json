@@ -1037,11 +1037,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/brandongrando/Documents/llmany/llmany-backend/llmany-backend.csproj",
+      "projectUniqueName": "/Users/brandongrando/Documents/llmany/backend/llmany-backend.csproj",
       "projectName": "llmany-backend",
-      "projectPath": "/Users/brandongrando/Documents/llmany/llmany-backend/llmany-backend.csproj",
+      "projectPath": "/Users/brandongrando/Documents/llmany/backend/llmany-backend.csproj",
       "packagesPath": "/Users/brandongrando/.nuget/packages/",
-      "outputPath": "/Users/brandongrando/Documents/llmany/llmany-backend/obj/",
+      "outputPath": "/Users/brandongrando/Documents/llmany/backend/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/brandongrando/.nuget/NuGet/NuGet.Config"

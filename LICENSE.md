@@ -1,3 +1,7 @@
+Copyright 2025 Brandon Grando
+
+Required Notice: Copyright 2025 Brandon Grando
+
 # PolyForm Noncommercial License 1.0.0
 
 <https://polyformproject.org/licenses/noncommercial/1.0.0>
