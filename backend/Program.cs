@@ -1,6 +1,12 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Register connectors
+builder.Services.AddHttpClient();
+builder.Services.AddSingleton<ILLMConnector, OpenAiConnector>();
+// later: .AddSingleton<ILLMConnector, ClaudeConnector>() etc.
+
+// Register service
+builder.Services.AddScoped<IPromptService, PromptService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

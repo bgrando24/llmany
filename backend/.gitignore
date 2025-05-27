@@ -1,3 +1,4 @@
 /bin
 /obj
 appsettings.*.json.user
+appsettings.Development.json
