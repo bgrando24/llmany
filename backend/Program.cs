@@ -5,6 +5,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddSingleton<ILLMConnector, OpenAiConnector>();
 builder.Services.AddSingleton<ILLMConnector, AnthropicConnector>();
 builder.Services.AddSingleton<ILLMConnector, DeepSeekConnector>();
+builder.Services.AddSingleton<ILLMConnector, GoogleConnector>();
 
 // Register service
 builder.Services.AddScoped<IPromptService, PromptService>();
