@@ -1,15 +1,15 @@
 <template>
-    <div>
+    <div class="max-w-2xl mx-auto">
         <h1 class="text-green-500">LLMany</h1>
         <form @submit.prevent="handleSubmit">
             <UInput
                 v-model="userPrompt"
+                class="w-full"
                 placeholder="Type your prompt here..."
             />
-            <UButton type="submit" label="Send" />
+            <UButton class="" type="submit" label="Send" />
         </form>
         <div v-if="receivedResponses">
-            <h2 class="mt-4">Responses:</h2>
             <div
                 v-for="(response, index) in receivedResponses.responses"
                 :key="index"
@@ -17,8 +17,7 @@
             >
                 <h3>{{ response.serviceName }} - {{ response.modelName }}</h3>
                 <p>{{ response.responseText }}</p>
-                <p><strong>Tokens Used:</strong> {{ response.tokensUsed }}</p>
-                <p><strong>Latency:</strong> {{ response.latencyMs }} ms</p>
+                <p>Latency: {{ response.latencyMs }}</p>
             </div>
         </div>
     </div>
