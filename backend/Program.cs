@@ -3,7 +3,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Register connectors
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<ILLMConnector, OpenAiConnector>();
-// later: .AddSingleton<ILLMConnector, ClaudeConnector>() etc.
+builder.Services.AddSingleton<ILLMConnector, AnthropicConnector>();
 
 // Register service
 builder.Services.AddScoped<IPromptService, PromptService>();
