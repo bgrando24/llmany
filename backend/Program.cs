@@ -4,6 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<ILLMConnector, OpenAiConnector>();
 builder.Services.AddSingleton<ILLMConnector, AnthropicConnector>();
+builder.Services.AddSingleton<ILLMConnector, DeepSeekConnector>();
 
 // Register service
 builder.Services.AddScoped<IPromptService, PromptService>();

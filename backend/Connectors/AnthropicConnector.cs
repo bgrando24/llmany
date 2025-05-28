@@ -56,6 +56,8 @@ public class AnthropicConnector : ILLMConnector
 
         return new ModelResponse
         {
+            ServiceName = ServiceName,
+            ModelName = ModelName,
             ResponseText = responsePayload.Content[0].Text,
             LatencyMs = sw.ElapsedMilliseconds
         };

@@ -61,6 +61,7 @@ public class OpenAiConnector : ILLMConnector
 
         return new ModelResponse
         {
+            ServiceName = ServiceName,
             ModelName = ModelName,
             ResponseText = responsePayload.Output[0].Content[0].Text,
             TokensUsed = responsePayload.Usage.TotalTokens,
