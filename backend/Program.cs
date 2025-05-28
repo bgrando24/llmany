@@ -7,6 +7,16 @@ builder.Services.AddSingleton<ILLMConnector, AnthropicConnector>();
 builder.Services.AddSingleton<ILLMConnector, DeepSeekConnector>();
 builder.Services.AddSingleton<ILLMConnector, GoogleConnector>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("https://localhost:3000")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 // Register service
 builder.Services.AddScoped<IPromptService, PromptService>();
 
@@ -25,6 +35,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthorization();
 

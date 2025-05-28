@@ -4,4 +4,10 @@ export default defineNuxtConfig({
     devtools: { enabled: true },
     modules: ["@nuxt/eslint", "@nuxt/ui", "@nuxt/icon", "@nuxtjs/tailwindcss"],
     css: ["~/assets/css/main.css"],
+    devServer: {
+        https: {
+            key: "./localhost-key.pem",
+            cert: "./localhost.pem",
+        },
+    },
 });
