@@ -1,15 +1,6 @@
 <template>
-    <div class="max-w-2xl mx-auto">
-        <h1 class="text-green-500">LLMany</h1>
-        <form @submit.prevent="handleSubmit">
-            <UInput
-                v-model="userPrompt"
-                class="w-full"
-                placeholder="Type your prompt here..."
-            />
-            <UButton class="" type="submit" label="Send" />
-        </form>
-        <div v-if="receivedResponses">
+    <div class="container">
+        <div v-if="receivedResponses" class="flex justify-center">
             <div
                 v-for="(response, index) in receivedResponses.responses"
                 :key="index"
@@ -20,11 +11,49 @@
                 <p>Latency: {{ response.latencyMs }}</p>
             </div>
         </div>
+        <h2 v-else-if="!loading" class="text-center mb-16">
+            Responses will display here when available
+        </h2>
+        <div v-else class="mb-16 flex justify-center">
+            <UIcon name="svg-spinners:90-ring-with-bg" size="70" />
+        </div>
+        <form
+            class="flex flex-col-reverse items-center sm:flex-row sm:justify-center gap-4"
+            @submit.prevent="handleSubmit"
+        >
+            <Btn type="submit" class="max-w-md w-full sm:max-w-60">Submit</Btn>
+            <textarea
+                v-model="userPrompt"
+                class="w-full max-w-2xl rounded-md pl-2 border-2 border-primary"
+                size="lg"
+                placeholder="Type your prompt here..."
+            />
+        </form>
+        <div class="w-full max-w-2xl mx-auto mt-8">
+            <UAlert
+                v-if="infoAlert"
+                :description="infoAlert"
+                color="info"
+                class="px-2 py-2 font-semibold"
+            />
+            <UAlert
+                v-if="errorAlert"
+                title="There was a problem"
+                :description="errorAlert"
+                color="error"
+                class="px-2 py-2 font-bold"
+            />
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
 const userPrompt = ref("");
+
+const infoAlert = ref("");
+const errorAlert = ref("");
+
+const loading = ref(false);
 
 // "prompt": "Give me a one sentence haiku about cats",
 //     "responses": [
@@ -35,6 +64,7 @@ const userPrompt = ref("");
 //             "tokensUsed": 0,
 //             "latencyMs": 1524.2885
 //         },
+
 interface PromptResponse {
     prompt: string;
     responses: {
@@ -49,8 +79,14 @@ interface PromptResponse {
 const receivedResponses = ref<PromptResponse | null>(null);
 
 const handleSubmit = async () => {
+    loading.value = true;
+    // Reset previous alerts
+    infoAlert.value = "";
+    errorAlert.value = "";
+
     if (userPrompt.value.trim() === "") {
-        alert("Please enter a prompt.");
+        infoAlert.value = "Please enter a prompt.";
+        loading.value = false;
         return;
     }
 
@@ -67,7 +103,7 @@ const handleSubmit = async () => {
             !response.responses ||
             response.responses.length === 0
         ) {
-            alert("No responses received.");
+            infoAlert.value = "No responses received. Please try again.";
             return;
         }
 
@@ -75,9 +111,10 @@ const handleSubmit = async () => {
         userPrompt.value = ""; // Clear the input after submission
     } catch (error) {
         console.error("Error submitting prompt:", error);
-        alert(
-            "An error occurred while submitting your prompt. Please try again."
-        );
+        errorAlert.value =
+            "An error occurred while submitting your prompt. Please try again later.";
+    } finally {
+        loading.value = false;
     }
 };
 </script>
