@@ -60,7 +60,7 @@ public class PromptService : IPromptService
         }
 
         // build a comparison prompt from the latest responses
-        var instructionPromptText = "Compare the following responses from the given LLM services. Provide a concise summary particularly highlighting any consistent, and/or conflicting, information between the responses. Note, the responses use Markdown syntax. Please also use Markdown syntax.\n";
+        var instructionPromptText = "Compare the following responses from the given LLM services. Provide a concise summary of the information between the responses. Also, highlight any consistent and/or conflicting information between the services and their responses. Note, the responses use Markdown syntax. Please also use Markdown syntax.\n";
         string comparisonPromptText = "";
         foreach (var response in latestResponses.Responses)
         {
