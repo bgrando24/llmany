@@ -2,7 +2,7 @@
     <div class="max-w-3xl mx-auto">
         <div
             v-if="receivedResponses"
-            class="flex flex-col justify-center mb-20"
+            class="flex flex-col justify-center mb-36"
         >
             <div
                 v-if="receivedResponses.prompt"
@@ -22,7 +22,10 @@
             >
                 <h3>{{ response.serviceName }} - {{ response.modelName }}</h3>
                 <p>Latency: {{ Number(response.latencyMs).toFixed(2) }} ms</p>
-                <p class="mt-4">{{ response.responseText }}</p>
+                <p
+                    class="mt-4"
+                    v-html="marked.parse(response.responseText)"
+                ></p>
             </div>
         </div>
         <h2 v-else-if="!loading" class="text-center mb-16">
@@ -47,7 +50,7 @@
             />
         </div>
         <form
-            class="mt-8 w-full max-w-3xl rounded-t-3xl bg-neutral-50 dark:bg-neutral-900 fixed bottom-4"
+            class="mt-8 w-full max-w-3xl rounded-t-3xl bg-neutral-50 dark:bg-neutral-900 fixed bottom-0 pb-4"
             @submit.prevent="handleSubmit"
         >
             <InputTextChat
@@ -59,6 +62,8 @@
 </template>
 
 <script setup lang="ts">
+import { marked } from "marked";
+
 const userPrompt = ref("");
 
 const infoAlert = ref("");
@@ -88,6 +93,67 @@ interface PromptResponse {
 }
 
 const receivedResponses = ref<PromptResponse | null>(null);
+// const receivedResponses = ref<PromptResponse | null>({
+//     prompt: "Give me a short sentence haiku about cats",
+//     responses: [
+//         {
+//             serviceName: "OpenAI",
+//             modelName: "o4-mini",
+//             responseText:
+//                 "Soft paws tread moonlight, whiskers twitch in silent hunt, dawn greets purring warmth.",
+//             tokensUsed: 0,
+//             latencyMs: 4217.3648,
+//         },
+//         {
+//             serviceName: "Anthropic",
+//             modelName: "claude-3-5-haiku-latest",
+//             responseText:
+//                 "Here's a haiku about cats:\n\n```\nSoft paws, whiskers twitch\nMoonlight gleams on silent fur\nPurring, dreams unfold\n```",
+//             tokensUsed: 0,
+//             latencyMs: 1758,
+//         },
+//         {
+//             serviceName: "DeepSeek",
+//             modelName: "deepseek-chat",
+//             responseText:
+//                 "**Paws tap soft moonlight,**  \n**whiskers twitch with dreams so sweet—**  \n**night belongs to cats.**  \n\n(5-7-5 syllables)",
+//             tokensUsed: 0,
+//             latencyMs: 8086,
+//         },
+//         {
+//             serviceName: "Google Gemini",
+//             modelName: "gemini-2.0-flash",
+//             responseText:
+//                 "Soft paws tread so light,\nA purring rumble vibrates,\nSunbeam nap unfolds.\n",
+//             tokensUsed: 0,
+//             latencyMs: 1637,
+//         },
+//         {
+//             serviceName: "Google Gemini",
+//             modelName: "gemini-2.0-flash",
+//             responseText:
+//                 "Soft paws tread so light,\nA purring rumble vibrates,\nSunbeam nap unfolds.\n",
+//             tokensUsed: 0,
+//             latencyMs: 1637,
+//         },
+//         {
+//             serviceName: "Google Gemini",
+//             modelName: "gemini-2.0-flash",
+//             responseText:
+//                 "Soft paws tread so light,\nA purring rumble vibrates,\nSunbeam nap unfolds.\n",
+//             tokensUsed: 0,
+//             latencyMs: 1637,
+//         },
+//         {
+//             serviceName: "Google Gemini",
+//             modelName: "gemini-2.0-flash",
+//             responseText:
+//                 "Soft paws tread so light,\nA purring rumble vibrates,\nSunbeam nap unfolds.\n",
+//             tokensUsed: 0,
+//             latencyMs: 1637,
+//         },
+//     ],
+// });
 
 const handleSubmit = async () => {
     loading.value = true;

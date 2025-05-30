@@ -2,13 +2,7 @@
 export default defineNuxtConfig({
     compatibilityDate: "2025-05-15",
     devtools: { enabled: true },
-    modules: [
-      "@nuxt/eslint",
-      "@nuxt/ui",
-      "@nuxt/icon",
-      "@nuxtjs/tailwindcss",
-      "@nuxtjs/mdc",
-    ],
+    modules: ["@nuxt/eslint", "@nuxt/ui", "@nuxt/icon", "@nuxtjs/tailwindcss"],
     css: ["~/assets/css/main.css"],
     devServer: {
         https: {

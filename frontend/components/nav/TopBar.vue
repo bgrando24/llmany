@@ -3,7 +3,7 @@
         class="z-50 bg-neutral-50 dark:bg-neutral-900 top-0 sticky shadow-md mb-16"
     >
         <div class="container h-16 flex justify-between items-center">
-            <h1>
+            <h1 class="!mb-0">
                 <NuxtLink to="/">LLMany</NuxtLink>
             </h1>
             <div class="flex items-center space-x-2">

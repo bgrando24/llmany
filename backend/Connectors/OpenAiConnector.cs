@@ -31,7 +31,7 @@ public class OpenAiConnector : ILLMConnector
         // build request object
         var request = new
         {
-            instructions = "Provide your response using Markdown syntax",
+            instructions = "Provide your response in Markdown syntax",
             model = ModelName,
             input = requestPrompt.Prompt
         };
@@ -58,14 +58,26 @@ public class OpenAiConnector : ILLMConnector
 
         if (responsePayload == null)
         {
-            throw new InvalidOperationException("Failed to deserialise OpenAI response.");
+            throw new InvalidOperationException("Failed to deserialize OpenAI response.");
+        }
+
+        if (responsePayload.Output == null || responsePayload.Output.Count == 0)
+        {
+            throw new InvalidOperationException("OpenAI response does not contain any output.");
+        }
+
+        var firstMessageOutput = responsePayload.Output.FirstOrDefault(o => o.Type == "message" && o.Content != null);
+
+        if (firstMessageOutput == null || firstMessageOutput.Content == null || firstMessageOutput.Content.Count == 0)
+        {
+            throw new InvalidOperationException("OpenAI response does not contain valid message content.");
         }
 
         return new ModelResponse
         {
             ServiceName = ServiceName,
             ModelName = ModelName,
-            ResponseText = responsePayload.Output[0].Content[0].Text,
+            ResponseText = firstMessageOutput.Content[0].Text,
             TokensUsed = responsePayload.Usage.TotalTokens,
             LatencyMs = sw.Elapsed.TotalMilliseconds
         };
@@ -73,69 +85,72 @@ public class OpenAiConnector : ILLMConnector
 
     private class OpenAiResponse
     {
-        public string? Id { get; set; }
-        public string? Object { get; set; }
+        public string Id { get; set; } = string.Empty;
+        public string Object { get; set; } = string.Empty;
         public long CreatedAt { get; set; }
         public string? Status { get; set; }
+        public bool Background { get; set; }
         public object? Error { get; set; }
         public object? IncompleteDetails { get; set; }
-        public object? Instructions { get; set; }
+        public string? Instructions { get; set; }
         public object? MaxOutputTokens { get; set; }
-        public string? Model { get; set; }
-        public required Output[] Output { get; set; }
+        public string Model { get; set; } = string.Empty;
+        public List<Output> Output { get; set; } = new();
         public bool ParallelToolCalls { get; set; }
         public object? PreviousResponseId { get; set; }
-        public Reasoning? Reasoning { get; set; }
+        public Reasoning Reasoning { get; set; } = new();
+        public string ServiceTier { get; set; } = string.Empty;
         public bool Store { get; set; }
         public double Temperature { get; set; }
-        public TextFormat? Text { get; set; }
+        public TextFormat Text { get; set; } = new();
         public string? ToolChoice { get; set; }
-        public object[]? Tools { get; set; }
+        public List<object> Tools { get; set; } = new();
         public double TopP { get; set; }
         public string? Truncation { get; set; }
-        public required Usage Usage { get; set; }
+        public Usage Usage { get; set; } = new();
         public object? User { get; set; }
-        public object? Metadata { get; set; }
+        public Dictionary<string, object>? Metadata { get; set; }
     }
 
     private class Output
     {
-        public string? Type { get; set; }
-        public string? Id { get; set; }
+        public string Id { get; set; } = string.Empty;
+        public string Type { get; set; } = string.Empty;
         public string? Status { get; set; }
         public string? Role { get; set; }
-        public required Content[] Content { get; set; }
+        public List<Content>? Content { get; set; } // Content is optional
+        public List<object>? Summary { get; set; } // Summary is optional
     }
 
     private class Content
     {
-        public string? Type { get; set; }
-        public required string Text { get; set; }
-        public object[]? Annotations { get; set; }
+        public string Type { get; set; } = string.Empty;
+        public string Text { get; set; } = string.Empty;
+        public List<object> Annotations { get; set; } = new();
     }
 
     private class Reasoning
     {
-        public object? Effort { get; set; }
+        public string Effort { get; set; } = string.Empty;
         public object? Summary { get; set; }
     }
 
     private class TextFormat
     {
-        public Format? Format { get; set; }
+        public Format Format { get; set; } = new();
     }
 
     private class Format
     {
-        public string? Type { get; set; }
+        public string Type { get; set; } = string.Empty;
     }
 
     private class Usage
     {
         public int InputTokens { get; set; }
-        public InputTokensDetails? InputTokensDetails { get; set; }
+        public InputTokensDetails InputTokensDetails { get; set; } = new();
         public int OutputTokens { get; set; }
-        public OutputTokensDetails? OutputTokensDetails { get; set; }
+        public OutputTokensDetails OutputTokensDetails { get; set; } = new();
         public int TotalTokens { get; set; }
     }
 
@@ -147,5 +162,8 @@ public class OpenAiConnector : ILLMConnector
     private class OutputTokensDetails
     {
         public int ReasoningTokens { get; set; }
+        public int AudioTokens { get; set; }
+        public int AcceptedPredictionTokens { get; set; }
+        public int RejectedPredictionTokens { get; set; }
     }
 }
