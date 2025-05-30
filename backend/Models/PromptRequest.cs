@@ -7,4 +7,6 @@ public class PromptRequest
     /// The user-provided text prompt to be forwarded to LLM services
     /// </summary>
     public string Prompt { get; set; } = string.Empty;
+
+    public string? Instructions { get; set; }
 }

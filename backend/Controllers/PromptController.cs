@@ -18,4 +18,14 @@ public class PromptController : ControllerBase
         var agg = await _promptService.FanOutAsync(req, ct);
         return Ok(agg);
     }
+
+    [HttpGet("compare-latest")]
+    public async Task<ActionResult<AggregatedResponse?>> GetLatest(CancellationToken ct)
+    {
+        var latest = await _promptService.CompareLatestAsync(ct);
+        if (latest == null)
+            return NotFound("No cached responses available.");
+
+        return Ok(latest);
+    }
 }

@@ -20,6 +20,8 @@ builder.Services.AddCors(options =>
 // Register service
 builder.Services.AddScoped<IPromptService, PromptService>();
 
+builder.Services.AddMemoryCache();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
