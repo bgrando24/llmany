@@ -7,5 +7,5 @@
 
 <script setup lang="ts">
 const colourMode = useColorMode();
-colourMode.preference = "light";
+colourMode.preference = "system";
 </script>

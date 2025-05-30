@@ -17,15 +17,16 @@
         <div v-else class="mb-16 flex justify-center">
             <UIcon name="svg-spinners:90-ring-with-bg" size="70" />
         </div>
-        <form
-            class="flex flex-col-reverse items-center sm:flex-row sm:justify-center gap-4"
-            @submit.prevent="handleSubmit"
-        >
-            <Btn type="submit" class="max-w-md w-full sm:max-w-60">Submit</Btn>
+        <form class="max-w-3xl mx-auto" @submit.prevent="handleSubmit">
+            <!-- <Btn type="submit" class="max-w-md w-full sm:max-w-40">Submit</Btn>
             <textarea
                 v-model="userPrompt"
                 class="w-full max-w-2xl rounded-md pl-2 border-2 border-primary"
                 size="lg"
+                placeholder="Type your prompt here..."
+            /> -->
+            <InputTextChat
+                v-model="userPrompt"
                 placeholder="Type your prompt here..."
             />
         </form>
