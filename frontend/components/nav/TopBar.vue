@@ -4,9 +4,23 @@
             <NuxtLink to="/" class="text-2xl font-bold text-primary"
                 >LLMany</NuxtLink
             >
-            <div class="flex">Toggle</div>
+            <div class="flex items-center space-x-2">
+                <USwitch
+                    v-model="useDarkMode"
+                    size="xl"
+                    checked-icon="pixelarticons:moon-star"
+                    unchecked-icon="pixelarticons:lightbulb-on"
+                />
+            </div>
         </div>
     </nav>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const colourMode = useColorMode();
+const useDarkMode = ref(true);
+
+watch(useDarkMode, (newValue) => {
+    colourMode.preference = newValue ? "dark" : "light";
+});
+</script>
