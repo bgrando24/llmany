@@ -1,7 +1,7 @@
 <template>
     <div
         :class="props.customStyling"
-        class="w-full flex flex-col rounded-3xl border-2 border-primary border-primary"
+        class="w-full flex flex-col rounded-3xl border-2 border-primary"
     >
         <textarea
             ref="textareaRef"
@@ -9,7 +9,7 @@
             @input="resizeTextarea"
             rows="1"
             class="w-full resize-none overflow-y-auto rounded-md p-4 focus:outline-none transition"
-            placeholder="Enter your prompt..."
+            :placeholder="props.placeholder"
         />
         <div class="flex justify-end pr-3 pb-3">
             <button

@@ -1,9 +1,9 @@
 <template>
     <nav class="shadow-md mb-16">
-        <div class="container h-24 flex justify-between items-center">
-            <NuxtLink to="/" class="text-2xl font-bold text-primary"
-                >LLMany</NuxtLink
-            >
+        <div class="container h-16 flex justify-between items-center">
+            <h1>
+                <NuxtLink to="/">LLMany</NuxtLink>
+            </h1>
             <div class="flex items-center space-x-2">
                 <USwitch
                     v-model="useDarkMode"

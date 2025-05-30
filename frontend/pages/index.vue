@@ -1,14 +1,23 @@
 <template>
-    <div class="container">
-        <div v-if="receivedResponses" class="flex justify-center">
+    <div class="max-w-3xl mx-auto h-screen">
+        <div v-if="receivedResponses" class="pl-4 flex flex-col justify-center">
             <div
-                v-for="(response, index) in receivedResponses.responses"
+                v-if="receivedResponses.prompt"
+                class="mb-8 flex gap-2 items-baseline"
+            >
+                <p class="text-lg font-bold text-primary">Your prompt:</p>
+                <p class="italic font-normal">
+                    {{ receivedResponses.prompt }}
+                </p>
+            </div>
+            <div
+                v-for="response in receivedResponses.responses"
                 :key="index"
-                class="mb-4"
+                class="mb-8 w-full border-2 border-neutral p-4 rounded-xl"
             >
                 <h3>{{ response.serviceName }} - {{ response.modelName }}</h3>
-                <p>{{ response.responseText }}</p>
-                <p>Latency: {{ response.latencyMs }}</p>
+                <p>Latency: {{ Number(response.latencyMs).toFixed(2) }} ms</p>
+                <p class="mt-4">{{ response.responseText }}</p>
             </div>
         </div>
         <h2 v-else-if="!loading" class="text-center mb-16">
@@ -17,19 +26,6 @@
         <div v-else class="mb-16 flex justify-center">
             <UIcon name="svg-spinners:90-ring-with-bg" size="70" />
         </div>
-        <form class="max-w-3xl mx-auto" @submit.prevent="handleSubmit">
-            <!-- <Btn type="submit" class="max-w-md w-full sm:max-w-40">Submit</Btn>
-            <textarea
-                v-model="userPrompt"
-                class="w-full max-w-2xl rounded-md pl-2 border-2 border-primary"
-                size="lg"
-                placeholder="Type your prompt here..."
-            /> -->
-            <InputTextChat
-                v-model="userPrompt"
-                placeholder="Type your prompt here..."
-            />
-        </form>
         <div class="w-full max-w-2xl mx-auto mt-8">
             <UAlert
                 v-if="infoAlert"
@@ -45,6 +41,12 @@
                 class="px-2 py-2 font-bold"
             />
         </div>
+        <form class="mt-8" @submit.prevent="handleSubmit">
+            <InputTextChat
+                v-model="userPrompt"
+                placeholder="Enter your prompt here..."
+            />
+        </form>
     </div>
 </template>
 
@@ -77,7 +79,43 @@ interface PromptResponse {
     }[];
 }
 
-const receivedResponses = ref<PromptResponse | null>(null);
+// const receivedResponses = ref<PromptResponse | null>(null);
+const receivedResponses = ref<PromptResponse>({
+    prompt: "Give me a one sentence haiku about cats",
+    responses: [
+        {
+            serviceName: "OpenAI",
+            modelName: "gpt-4.1",
+            responseText:
+                "Soft paws in moonlight,  \nSilent whiskers drift through dreams—  \nNight’s gentle secret.",
+            tokensUsed: 0,
+            latencyMs: 1524.2885,
+        },
+        {
+            serviceName: "Anthropic",
+            modelName: "claude-opus-4-20250514",
+            responseText: "Soft paws on moonlight.",
+            tokensUsed: 0,
+            latencyMs: 3793,
+        },
+        {
+            serviceName: "DeepSeek",
+            modelName: "deepseek-chat",
+            responseText:
+                '"Soft paws dance at dawn— / whiskers twitch in golden light— / purring sunbeam nap."',
+            tokensUsed: 0,
+            latencyMs: 4867,
+        },
+        {
+            serviceName: "Google Gemini",
+            modelName: "gemini-2.0-flash",
+            responseText:
+                "Soft paws tread lightly,\nA purring, rumbling engine,\nSunbeam nap begins.\n",
+            tokensUsed: 0,
+            latencyMs: 792,
+        },
+    ],
+});
 
 const handleSubmit = async () => {
     loading.value = true;
