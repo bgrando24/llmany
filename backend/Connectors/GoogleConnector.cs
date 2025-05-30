@@ -39,6 +39,16 @@ public class GoogleConnector : ILLMConnector
         // build request object
         var request = new
         {
+            system_instruction = new
+            {
+                parts = new[]
+                {
+                    new
+                    {
+                        text = "Provide your response using Markdown syntax"
+                    }
+                }
+            },
             contents = new[]
             {
                 new

@@ -13,7 +13,8 @@ public class OpenAiConnector : ILLMConnector
     private readonly string _apiKey;
 
     public string ServiceName => "OpenAI";
-    public string ModelName => "gpt-4.1";
+    // public string ModelName => "gpt-4.1";
+    public string ModelName => "o4-mini";
 
     public OpenAiConnector(IConfiguration config, IHttpClientFactory httpFactory)
     {
@@ -30,6 +31,7 @@ public class OpenAiConnector : ILLMConnector
         // build request object
         var request = new
         {
+            instructions = "Provide your response using Markdown syntax",
             model = ModelName,
             input = requestPrompt.Prompt
         };

@@ -7,6 +7,7 @@ export default defineNuxtConfig({
       "@nuxt/ui",
       "@nuxt/icon",
       "@nuxtjs/tailwindcss",
+      "@nuxtjs/mdc",
     ],
     css: ["~/assets/css/main.css"],
     devServer: {

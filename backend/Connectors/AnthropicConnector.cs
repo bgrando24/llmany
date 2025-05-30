@@ -11,7 +11,8 @@ public class AnthropicConnector : ILLMConnector
     private readonly string _apiKey;
 
     public string ServiceName => "Anthropic";
-    public string ModelName => "claude-opus-4-20250514";
+    // public string ModelName => "claude-opus-4-20250514";
+    public string ModelName => "claude-3-5-haiku-latest";
 
     public AnthropicConnector(IConfiguration config, IHttpClientFactory httpFactory)
     {
@@ -30,6 +31,8 @@ public class AnthropicConnector : ILLMConnector
         {
             model = ModelName,
             max_tokens = 1024,
+            temperature = 1,
+            system = "Provide your response using Markdown syntax",
             messages = new[]
             {
                 new

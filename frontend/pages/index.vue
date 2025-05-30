@@ -1,11 +1,16 @@
 <template>
-    <div class="max-w-3xl mx-auto h-screen">
-        <div v-if="receivedResponses" class="pl-4 flex flex-col justify-center">
+    <div class="max-w-3xl mx-auto">
+        <div
+            v-if="receivedResponses"
+            class="flex flex-col justify-center mb-20"
+        >
             <div
                 v-if="receivedResponses.prompt"
-                class="mb-8 flex gap-2 items-baseline"
+                class="mb-8 w-full bg-neutral-200 dark:bg-neutral-800 px-2 py-4 rounded-xl flex gap-2 items-baseline"
             >
-                <p class="text-lg font-bold text-primary">Your prompt:</p>
+                <p class="text-lg font-bold text-primary whitespace-nowrap">
+                    Your prompt:
+                </p>
                 <p class="italic font-normal">
                     {{ receivedResponses.prompt }}
                 </p>
@@ -41,7 +46,10 @@
                 class="px-2 py-2 font-bold"
             />
         </div>
-        <form class="mt-8" @submit.prevent="handleSubmit">
+        <form
+            class="mt-8 w-full max-w-3xl rounded-t-3xl bg-neutral-50 dark:bg-neutral-900 fixed bottom-4"
+            @submit.prevent="handleSubmit"
+        >
             <InputTextChat
                 v-model="userPrompt"
                 placeholder="Enter your prompt here..."
@@ -79,43 +87,7 @@ interface PromptResponse {
     }[];
 }
 
-// const receivedResponses = ref<PromptResponse | null>(null);
-const receivedResponses = ref<PromptResponse>({
-    prompt: "Give me a one sentence haiku about cats",
-    responses: [
-        {
-            serviceName: "OpenAI",
-            modelName: "gpt-4.1",
-            responseText:
-                "Soft paws in moonlight,  \nSilent whiskers drift through dreams—  \nNight’s gentle secret.",
-            tokensUsed: 0,
-            latencyMs: 1524.2885,
-        },
-        {
-            serviceName: "Anthropic",
-            modelName: "claude-opus-4-20250514",
-            responseText: "Soft paws on moonlight.",
-            tokensUsed: 0,
-            latencyMs: 3793,
-        },
-        {
-            serviceName: "DeepSeek",
-            modelName: "deepseek-chat",
-            responseText:
-                '"Soft paws dance at dawn— / whiskers twitch in golden light— / purring sunbeam nap."',
-            tokensUsed: 0,
-            latencyMs: 4867,
-        },
-        {
-            serviceName: "Google Gemini",
-            modelName: "gemini-2.0-flash",
-            responseText:
-                "Soft paws tread lightly,\nA purring, rumbling engine,\nSunbeam nap begins.\n",
-            tokensUsed: 0,
-            latencyMs: 792,
-        },
-    ],
-});
+const receivedResponses = ref<PromptResponse | null>(null);
 
 const handleSubmit = async () => {
     loading.value = true;

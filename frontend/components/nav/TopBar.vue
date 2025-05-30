@@ -1,5 +1,7 @@
 <template>
-    <nav class="shadow-md mb-16">
+    <nav
+        class="z-50 bg-neutral-50 dark:bg-neutral-900 top-0 sticky shadow-md mb-16"
+    >
         <div class="container h-16 flex justify-between items-center">
             <h1>
                 <NuxtLink to="/">LLMany</NuxtLink>

@@ -42,6 +42,11 @@ public class DeepSeekConnector : ILLMConnector
             {
                 new
                 {
+                    role = "system",
+                    content = "Provide your response using Markdown syntax"
+                },
+                new
+                {
                     role = "user",
                     content = requestPrompt.Prompt
                 }

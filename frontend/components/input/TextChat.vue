@@ -1,7 +1,7 @@
 <template>
     <div
         :class="props.customStyling"
-        class="w-full flex flex-col rounded-3xl border-2 border-primary"
+        class="w-full z-50 bg-neutral-50 dark:bg-neutral-900 flex flex-col rounded-3xl border-2 border-primary"
     >
         <textarea
             ref="textareaRef"
